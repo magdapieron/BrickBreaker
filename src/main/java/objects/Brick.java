@@ -4,31 +4,34 @@ import java.util.Comparator;
 
 public class Brick implements Comparable<Brick>{
 
-    private int x;
-    private int y;
-    private int height;
-    private int width;
 
-    public Brick(int x, int y, int  height, int width)
+    private final int height;
+    private final int width;
+    private final Position position;
+    private int thickness;
+
+    public Brick(int  height, int width, Position position, int thickness)
     {
-        this.x = x;
-        this.y = y;
         this.height = height;
         this.width = width;
+        this.position = position;
+        this.thickness = thickness;
+    }
+
+    public void hit()
+    {
+        this.thickness -=1;
+    }
+
+    public int destroyed()
+    {
+        return thickness;
     }
 
     @Override
     public int compareTo(Brick brick)
     {
-        return Comparator.comparing(Brick::getX).reversed().thenComparing(Brick::getY).compare(this, brick);
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+        return Comparator.comparing(Position::getX).reversed().thenComparing(Position::getY).compare(this.getPosition(), brick.getPosition());
     }
 
     public int getHeight() {
@@ -37,5 +40,9 @@ public class Brick implements Comparable<Brick>{
 
     public int getWidth() {
         return width;
+    }
+
+    public Position getPosition() {
+        return position;
     }
 }

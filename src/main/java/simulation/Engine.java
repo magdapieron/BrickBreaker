@@ -1,52 +1,40 @@
 package simulation;
 
-import objects.Ball;
-import objects.Brick;
-import objects.Platform;
+import objects.*;
 
 import java.util.TreeSet;
 
 public class Engine {
 
-    private TreeSet<Brick> bricks;
-    private Ball ball;
-    private Platform platform;
-    private int windowWidth;
-    private int windowHeight;
-    private int brickHeight = 5;
-    private int brickWidth = 10;
+    private final int windowWidth;
+    private final int windowHeight;
+    private LevelParameters parameters;
+    private Board board;
 
     public Engine(int windowWidth, int windowHeight)
     {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
-        this.bricks = new TreeSet<>();
-        createObjects();
-    }
 
-    private void createObjects()
-    {
-        for(int i=0; i < windowHeight/brickHeight; i++)
-        {
-            for(int j=0; j < windowWidth/brickWidth; j++)
-            {
-                bricks.add(new Brick(j,i,brickHeight,brickWidth));
-            }
-        }
+        parameters = new LevelParameters(50, 100, 15, 100, 10,
+                windowWidth/2, 700, windowWidth/2, 465, 1);
 
-        ball = new Ball(windowWidth);
-        platform = new Platform(windowWidth);
+        this.board = new Board(parameters, windowWidth, windowHeight);
     }
 
     public TreeSet<Brick> getBricks() {
-        return bricks;
+        return board.getBricks();
     }
 
     public Ball getBall() {
-        return ball;
+        return board.getBall();
     }
 
-    public Platform getPlatform() {
-        return platform;
+    public Paddle getPaddle() {
+        return board.getPaddle();
+    }
+
+    public LevelParameters getParameters() {
+        return parameters;
     }
 }

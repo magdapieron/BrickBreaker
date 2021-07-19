@@ -1,12 +1,14 @@
 package animation;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
+import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import objects.LevelParameters;
 
 public class Main extends Application{
 
@@ -18,15 +20,21 @@ public class Main extends Application{
     @Override
     public void start (Stage theStage) throws Exception
     {
-        AnchorPane pane = new AnchorPane();
-        Controller controller = new Controller();
-        FXMLLoader fxml = new FXMLLoader(getClass().getResource("/BrickBreakerWindow.fxml"));
+        int windowWidth = 400;
+        int windowHeight = 500;
 
-        fxml.setController(controller);
-        pane.getChildren().add(fxml.load());
-        Scene scene = new Scene(pane);
+        AnchorPane root = new AnchorPane();
+
+
+        final Canvas canvas = new Canvas(windowWidth,windowHeight);
+        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Scene scene = new Scene(root, windowWidth, windowHeight, Color.PALETURQUOISE);
+        root.getChildren().add(canvas);
         theStage.setScene(scene);
         theStage.setTitle("Brick Breaker!");
         theStage.show();
+
+        Controller controller = new Controller(gc, windowWidth, windowHeight);
+        controller.initialize();
     }
 }

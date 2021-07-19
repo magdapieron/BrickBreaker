@@ -4,42 +4,30 @@ import javafx.scene.image.Image;
 
 public class Ball {
 
-    private int x;
-    private int y;
-    private int radius = 5;
+    private int radius;
+    private Position position;
 
-    public Ball(int windowWidth)
+    public Ball(int radius, Position position)
     {
-        this.x = windowWidth/2;
-        this.y = 20;
-    }
-
-    public Ball(int x, int y)
-    {
-        this.x = x;
-        this.y = y;
+        this.radius = radius;
+        this.position = position;
     }
 
     public void move(int x, int y)
     {
-        this.x += x;
-        this.y += y;
+
     }
 
     public Image loadImage()
     {
-        return new Image("/Ball.png", radius, radius, true, true);
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public int getY() {
-        return y;
+        return new Image("/Ball.png", 2*this.radius, 2*this.radius, true, true);
     }
 
     public int getRadius() {
         return radius;
+    }
+
+    public Position getPosition() {
+        return position;
     }
 }
