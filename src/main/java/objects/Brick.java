@@ -1,5 +1,7 @@
 package objects;
 
+import javafx.scene.image.Image;
+
 import java.util.Comparator;
 
 public class Brick implements Comparable<Brick>{
@@ -23,23 +25,20 @@ public class Brick implements Comparable<Brick>{
         this.thickness -=1;
     }
 
-    public int destroyed()
+    public Image loadImage()
     {
-        return thickness;
+        return new Image("/Brick.png", width, height, true, true);
+    }
+
+    public boolean destroyed()
+    {
+        return thickness == 0;
     }
 
     @Override
     public int compareTo(Brick brick)
     {
         return Comparator.comparing(Position::getX).reversed().thenComparing(Position::getY).compare(this.getPosition(), brick.getPosition());
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
     }
 
     public Position getPosition() {

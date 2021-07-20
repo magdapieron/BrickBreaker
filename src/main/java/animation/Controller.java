@@ -1,30 +1,32 @@
 package animation;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.paint.Color;
+import objects.Ball;
+import objects.Brick;
 import simulation.Engine;
+import simulation.GameParameters;
 
 public class Controller {
 
     private final Engine engine;
-    private final int windowWidth;
-    private final int windowHeight;
     private final GraphicsContext gc;
 
-    public Controller(GraphicsContext gc, int windowWidth, int windowHeight)
+    public Controller(GraphicsContext gc)
     {
-        this.windowWidth = windowWidth;
-        this.windowHeight = windowHeight;
-        this.engine = new Engine(windowWidth, windowHeight);
+        this.engine = new Engine();
         this.gc = gc;
     }
 
     public void initialize()
     {
-        int ballX = engine.getBall().getPosition().getX() - engine.getParameters().ballRadius();
-        int ballY = engine.getBall().getPosition().getY() - engine.getParameters().ballRadius();
-        int platformX = engine.getPaddle().getPosition().getX() - engine.getParameters().platformWidth()/2;
-        int platformY = engine.getPaddle().getPosition().getY();
-        gc.drawImage(engine.getBall().loadImage(),ballX, ballY);
-        gc.drawImage(engine.getPaddle().loadImage(), platformX , platformY );
+        gc.drawImage(engine.getPaddle().loadImage(), GameParameters.INIT_PADDLE_X, GameParameters.INIT_PADDLE_Y);
+
+        for(Brick brick : engine.getBricks())
+            gc.drawImage(brick.loadImage(), brick.getPosition().getX(), brick.getPosition().getY());
+
+        for (Ball ball : engine.getBall())
+            gc.drawImage(ball.loadImage(), GameParameters.INIT_BALL_X, GameParameters.INIT_BALL_Y);
+
     }
 }

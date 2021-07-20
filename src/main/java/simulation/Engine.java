@@ -2,31 +2,27 @@ package simulation;
 
 import objects.*;
 
+import java.util.List;
 import java.util.TreeSet;
 
 public class Engine {
 
-    private final int windowWidth;
-    private final int windowHeight;
-    private LevelParameters parameters;
-    private Board board;
+    private final LevelParameters parameters;
+    private final Board board;
 
-    public Engine(int windowWidth, int windowHeight)
+    public Engine()
     {
-        this.windowWidth = windowWidth;
-        this.windowHeight = windowHeight;
+        parameters = new LevelParameters(15, 40, 20, 60, 10,
+                1);
 
-        parameters = new LevelParameters(50, 100, 15, 100, 10,
-                windowWidth/2, 700, windowWidth/2, 465, 1);
-
-        this.board = new Board(parameters, windowWidth, windowHeight);
+        this.board = new Board(parameters);
     }
 
     public TreeSet<Brick> getBricks() {
         return board.getBricks();
     }
 
-    public Ball getBall() {
+    public List<Ball> getBall() {
         return board.getBall();
     }
 

@@ -1,6 +1,7 @@
 package objects;
 
 import javafx.scene.image.Image;
+import simulation.GameParameters;
 
 public class Paddle {
 
@@ -20,8 +21,8 @@ public class Paddle {
         if(position.getX() + x < 0)
             this.position.setX(0);
 
-        else if(position.getX() + x + width > position.getWindowWidth())
-            this.position.setX(position.getWindowWidth());
+        else if(position.getX() + x + width > GameParameters.WINDOW_WIDTH)
+            this.position.setX(GameParameters.WINDOW_WIDTH);
 
         else
             this.position.setX(x);
@@ -30,14 +31,6 @@ public class Paddle {
     public Image loadImage()
     {
         return new Image("/Paddle.png", width, height, true, true);
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public int getWidth() {
-        return width;
     }
 
     public Position getPosition() {

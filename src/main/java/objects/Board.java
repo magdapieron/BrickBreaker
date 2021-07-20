@@ -1,23 +1,21 @@
-package simulation;
+package objects;
 
-import objects.*;
-
+import simulation.GameParameters;
+import simulation.LevelParameters;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
 
 public class Board {
 
     private LevelParameters parameters;
     private TreeSet<Brick> bricks;
-    private Ball ball;
+    private List<Ball> ball;
     private Paddle paddle;
-    private final int windowWidth;
-    private final int windowHeight;
 
-    public Board(LevelParameters parameters,int windowWidth, int windowHeight)
+    public Board(LevelParameters parameters)
     {
         this.parameters = parameters;
-        this.windowWidth = windowWidth;
-        this.windowHeight = windowHeight;
         createObjects();
     }
 
@@ -30,33 +28,44 @@ public class Board {
 
     private void createBall()
     {
-        ball = new Ball(parameters.ballRadius(), new Position(windowWidth,windowHeight, windowWidth/2, 350));
+        ball = new ArrayList<>();
+        ball.add(new Ball(parameters.ballRadius()));
     }
 
     private void createPlatform()
     {
         paddle = new Paddle(parameters.platformWidth(), parameters.platformHeight(),
-                new Position(windowWidth, windowHeight, windowWidth/2-parameters.platformWidth()/2, 450));
+                new Position(GameParameters.INIT_PADDLE_X, GameParameters.INIT_PADDLE_Y));
     }
 
     private void createBricks()
     {
         this.bricks = new TreeSet<>();
-        for(int i=0; i < windowHeight/parameters.brickHeight(); i++)
+        for(int i=0; i < 150; i+=15)
         {
-            for(int j=0; j < windowWidth/parameters.brickWidth(); j++)
+            for(int j=0; j <GameParameters.WINDOW_WIDTH; j+=40)
             {
-                bricks.add(new Brick(parameters.brickHeight(),parameters.brickWidth(), new Position(windowWidth, windowHeight, i,j),
+                bricks.add(new Brick(parameters.brickHeight(),parameters.brickWidth(), new Position(j,i),
                         parameters.brickThickness()));
             }
         }
+    }
+
+    public void createNewBall()
+    {
+
+    }
+
+    public void ballMove()
+    {
+
     }
 
     public TreeSet<Brick> getBricks() {
         return bricks;
     }
 
-    public Ball getBall() {
+    public List<Ball> getBall() {
         return ball;
     }
 

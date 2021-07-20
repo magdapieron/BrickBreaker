@@ -1,14 +1,13 @@
 package animation;
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import objects.LevelParameters;
+import simulation.GameParameters;
 
 public class Main extends Application{
 
@@ -20,21 +19,18 @@ public class Main extends Application{
     @Override
     public void start (Stage theStage) throws Exception
     {
-        int windowWidth = 400;
-        int windowHeight = 500;
-
         AnchorPane root = new AnchorPane();
 
 
-        final Canvas canvas = new Canvas(windowWidth,windowHeight);
+        final Canvas canvas = new Canvas(GameParameters.WINDOW_WIDTH, GameParameters.WINDOW_HEIGHT);
         GraphicsContext gc = canvas.getGraphicsContext2D();
-        Scene scene = new Scene(root, windowWidth, windowHeight, Color.PALETURQUOISE);
+        Scene scene = new Scene(root, GameParameters.WINDOW_WIDTH, GameParameters.WINDOW_HEIGHT, Color.PALETURQUOISE);
         root.getChildren().add(canvas);
         theStage.setScene(scene);
         theStage.setTitle("Brick Breaker!");
         theStage.show();
 
-        Controller controller = new Controller(gc, windowWidth, windowHeight);
+        Controller controller = new Controller(gc);
         controller.initialize();
     }
 }
